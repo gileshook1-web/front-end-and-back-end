@@ -1,11 +1,15 @@
-const express = require('express')
-const fruitsRouter = express.Router()
-const fruitsController = require('../controllers/fruitsController')
-const fruitsApp = require('../app')
+const express = require("express");
+const router = express.Router();
+const fruits = require("../controllers/fruits")
 
-fruitsRouter.get('/', fruitsController.showAllFruits)
-fruitsRouter.get("/:name", fruitsController.showFruit)
-fruitsRouter.post('/', fruitsController.createFruit)
-fruitsRouter.patch('/:name', fruitsController. updateFruit)
+router.get('/', fruits.index)
 
-module.exports = fruitsRouter
+router.get("/:name", fruits.show);
+
+router.post("/", fruits.create);
+
+router.patch("/:name", fruits.update);
+
+router.delete("/:name", fruits.destroy);
+
+module.exports = router

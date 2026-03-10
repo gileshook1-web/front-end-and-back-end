@@ -1,51 +1,66 @@
-const fruitsArray = require ('../fruits.json')
+const fruits = require("../fruits.json");
 
-class FruitsModel {
-    constructor(fruit){
+class Fruit {
+    constructor(fruit) {
         this.genus = fruit.genus;
-        this.name - fruit.name;
+        this.name = fruit.name;
         this.id = fruit.id;
         this.family = fruit.family;
         this.order = fruit.order;
         this.nutritions = fruit.nutritions;
     }
 
-    static showAllFruits(){
-        return fruitsArray.map(f => new FruitsModel(f))
+    static showAll() {
+        return fruits.map(q => new Fruit(q));
     }
-        static showFruit(name) {
-            const fruits = fruitsArray.filter(fruit => 
-                fruit.name.toLowerCase().startsWith(name.toLowerCase()))
-        
-        if (fruits.length > 0) {
-            return fruits.map(f => new FruitsModel(f))
+
+    static show(name) {
+        const fruit = fruits.find((fruit) => fruit.name.toLowerCase() == name);
+
+        if (fruit) {
+            return new Fruit(fruit);
         } else {
-            throw "No fruits found with that name"
+            throw "The fruit doesn't exist.";
         }
     }
-    static create(data){
+
+    static create(data) {
         const newFruit = data;
-        console.log(newFruit) // this is only for debugging
-
-        newFruit["id"] = fruitsArray.length + 1;
-
-        fruitsArray.push(newFruit);
-
-        return new FruitsModel(newFruit)
-    }
+        const fruit = fruits.find((fruit) => fruit.name.toLowerCase() == data.name.toLowerCase());
+  
+          if (fruit) {
+              throw "The fruit already exists.";
+          } else {
+              newFruit["id"] = fruits.length + 1;
+              fruits.push(newFruit);
+        
+              return new Fruit(newFruit)
+          }
+    };
 
     update(data) {
-        const updateFruit = fruitsArray.find(fruit => fruit.name.toLowerCase() === this.name.toLowerCase())
-        if(updateFruit){
-            updateFruit.name = data.name
-            return new FruitsModel(updateFruit)
-    } else {
-        throw "Fruit not found"
-    }
-    }
+        const updatedFruit = fruits.find(fruit => fruit.name.toLowerCase() === this.name.toLowerCase());
+    
+        if (updatedFruit) {
+          updatedFruit.name = data.name;
+          updatedFruit.family = data.family;
+          return new Fruit(updatedFruit);
+        } else {
+          throw "Fruit not found";
+        }
+    };
 
-
-
-
+    destroy() {
+        const deletedFruit = fruits.find(fruit => fruit.name.toLowerCase() === this.name.toLowerCase());
+      
+        if (deletedFruit) {
+          const index = fruits.indexOf(deletedFruit);
+          fruits.splice(index, 1);
+        } else {
+          throw "Quote not found";
+        }
+    };
 }
-module.exports = FruitsModel
+
+
+module.exports = Fruit;

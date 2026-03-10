@@ -1,8 +1,12 @@
-const express = require('express')
-const fruitsApp = express()
-const fruitRoutes = require('./routes/fruitRoutes')
+const express = require('express');
+const app = express();
+const fruits = require("./routes/fruits")
 
-fruitsApp.use(express.json()) //any http method
-fruitsApp.use('/fruits', fruitRoutes)
+app.get('/', (req, res) => {
+   res.send('Hello Fruity!');
+})
 
-module.exports = fruitsApp
+app.use(express.json());
+app.use('/fruits', fruits);
+
+module.exports = app
