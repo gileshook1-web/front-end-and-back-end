@@ -1,20 +1,19 @@
 {
-  "name": "fruit",
+  "name": "mc-backend-restful-complete",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.0"
   },
   "dependencies": {
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1"
+    "express": "^4.19.2"
   }
 }
